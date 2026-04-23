@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIMT Jiggasha | DU Affiliated Engineering</title>
     <meta name="description" content="ঢাকা বিশ্ববিদ্যালয় অধিভুক্ত সাইক ইনস্টিটিউট অফ ম্যানেজমেন্ট এন্ড টেকনোলজি (SIMT) সম্পর্কে সব তথ্য জানুন।">
+    <link rel="icon" href="./assets/simt.png" type="image/png">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -417,9 +418,14 @@
         </section>
 
         <div id="lightbox" class="fixed inset-0 bg-slate-900/95 hidden z-[100] flex flex-col justify-center items-center p-4 backdrop-blur-sm transition-all">
-            <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white text-4xl hover:text-red-500 hover:scale-110 transition duration-300"><i class="fa-solid fa-circle-xmark"></i></button>
-            <img id="lightbox-img" src="" class="max-w-full max-h-[75vh] rounded-xl shadow-2xl border-4 border-slate-700">
-            <p id="lightbox-caption" class="text-white text-xl font-bold mt-6 tracking-wide bg-blue-600/80 px-8 py-2 rounded-full shadow-lg border border-blue-400"></p>
+            <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white text-4xl hover:text-red-500 hover:scale-110 transition duration-300 z-50"><i class="fa-solid fa-circle-xmark"></i></button>
+            
+            <button onclick="prevImage(event)" class="absolute left-4 md:left-10 text-white/60 hover:text-white text-4xl md:text-6xl hover:scale-110 transition duration-300 z-50 drop-shadow-lg"><i class="fa-solid fa-chevron-left"></i></button>
+            
+            <button onclick="nextImage(event)" class="absolute right-4 md:right-10 text-white/60 hover:text-white text-4xl md:text-6xl hover:scale-110 transition duration-300 z-50 drop-shadow-lg"><i class="fa-solid fa-chevron-right"></i></button>
+
+            <img id="lightbox-img" src="" class="max-w-full max-h-[75vh] rounded-xl shadow-2xl border-4 border-slate-700 relative z-40 select-none">
+            <p id="lightbox-caption" class="text-white text-xl font-bold mt-6 tracking-wide bg-blue-600/80 px-8 py-2 rounded-full shadow-lg border border-blue-400 relative z-40"></p>
         </div>
 
         <section id="seniors" class="tab-content py-20 px-4 bg-gradient-to-br from-blue-900 via-slate-800 to-slate-900">
@@ -491,31 +497,63 @@
         }
 
         const grid = document.getElementById('image-grid');
-        const labels = ["Library Reading Hall", "Main Entrance", "Software Lab", "CNC Machine Lab", "Classroom Environment", "Campus Canteen", "Hostel Room", "Physics Lab", "DU Examination Hall", "Electrical Circuit Lab"];
         
-        for(let i=1; i<=50; i++) {
+        const galleryImages = [
+            { file: "library1.png", label: "Library Reading Hall" },
+            { file: "library2.png", label: "Library Reading Hall" },
+            { file: "library3.png", label: "Library Reading Hall" },
+            { file: "cselab1.jpeg", label: "Computer Science Lab" },
+            { file: "cselab2.jpeg", label: "Computer Science Lab" },
+            { file: "cselab3.jpeg", label: "Computer Science Lab" },
+            { file: "cselab4.jpeg", label: "Computer Science Lab" },
+            { file: "cselab5.jpeg", label: "Computer Science Lab" },
+            { file: "cselab6.png", label: "Computer Science Lab" },
+            { file: "cnc_machine.png", label: "CNC Machine Lab" },
+            { file: "classroom.jpg", label: "Classroom Environment" },
+            { file: "canteen.jpeg", label: "Campus Canteen" },
+            { file: "hostel1.png", label: "Hostel Room" },
+            { file: "hostel2.png", label: "Hostel Room" },
+            { file: "hostel3.png", label: "Hostel Room" },
+            { file: "celab1.jpeg", label: "CE Lab" },
+            { file: "celab2.jpeg", label: "CE Lab" },
+            { file: "celab3.jpeg", label: "CE Lab" },
+            { file: "sreemangal1.png", label: "Sreemangal Tour" },
+            { file: "sreemangal2.png", label: "Sreemangal Tour" },
+            { file: "sreemangal3.png", label: "Sreemangal Tour" },        
+            { file: "eeelab1.jpeg", label: "EEE Lab" },
+            { file: "eeelab2.jpeg", label: "EEE Lab" },
+
+        ];
+        
+        let currentImageIndex = 0; // Track the currently viewed image index
+
+        galleryImages.forEach((item, index) => {
             const div = document.createElement('div');
             div.className = "relative group cursor-pointer overflow-hidden rounded-xl bg-slate-200 aspect-[4/3] shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1";
-            const currentLabel = labels[(i-1) % labels.length]; 
             
             div.innerHTML = `
-                <img src="./assets/gallery-${i}.jpg" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x300/e2e8f0/64748b?text=SIMT+Gallery'" class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-in-out">
+                <img src="./assets/${item.file}" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x300/e2e8f0/64748b?text=SIMT+Gallery'" class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-in-out">
                 <div class="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-blue-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                    <span class="text-white text-xs font-bold truncate tracking-wide border-l-2 border-yellow-400 pl-2">${currentLabel}</span>
+                    <span class="text-white text-xs font-bold truncate tracking-wide border-l-2 border-yellow-400 pl-2">${item.label}</span>
                 </div>
             `;
-            div.onclick = () => openLightbox(`./assets/gallery-${i}.jpg`, currentLabel, i);
+            // Pass index instead of text/src
+            div.onclick = () => openLightbox(index);
             grid.appendChild(div);
-        }
+        });
 
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const lightboxCap = document.getElementById('lightbox-caption');
 
-        function openLightbox(src, text, index) {
-            lightboxImg.src = src;
+        function openLightbox(index) {
+            currentImageIndex = index; // Update global index
+            const item = galleryImages[currentImageIndex];
+            
+            lightboxImg.src = `./assets/${item.file}`;
             lightboxImg.onerror = function() { this.onerror=null; this.src = 'https://placehold.co/800x600/e2e8f0/64748b?text=SIMT+Gallery+Image'; };
-            lightboxCap.innerText = text;
+            lightboxCap.innerText = item.label;
+            
             lightbox.classList.remove('hidden');
             document.body.style.overflow = 'hidden'; 
         }
@@ -525,8 +563,39 @@
             document.body.style.overflow = 'auto'; 
         }
 
-        lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
-        window.addEventListener('keydown', (e) => { if (e.key === "Escape") closeLightbox(); });
+        // Logic for Next Image
+        function nextImage(e) {
+            if (e) e.stopPropagation(); // Prevents click from bubbling up and closing lightbox
+            currentImageIndex = (currentImageIndex === galleryImages.length - 1) ? 0 : currentImageIndex + 1;
+            openLightbox(currentImageIndex);
+        }
+
+        // Logic for Previous Image
+        function prevImage(e) {
+            if (e) e.stopPropagation(); // Prevents click from bubbling up and closing lightbox
+            currentImageIndex = (currentImageIndex === 0) ? galleryImages.length - 1 : currentImageIndex - 1;
+            openLightbox(currentImageIndex);
+        }
+
+        // Click outside image to close
+        lightbox.addEventListener('click', (e) => { 
+            if (e.target === lightbox) closeLightbox(); 
+        });
+
+        // Keyboard support (Arrow Left, Arrow Right, Escape)
+        window.addEventListener('keydown', (e) => { 
+            if (!lightbox.classList.contains('hidden')) {
+                if (e.key === "Escape") closeLightbox(); 
+                if (e.key === "ArrowRight") nextImage();
+                if (e.key === "ArrowLeft") prevImage();
+            }
+        });
+        
+        // Browser Favicon Error Handle
+        document.querySelector("img[src='./assets/simt.jpeg']").onerror = function() {
+            this.style.display = 'none';
+            document.getElementById('fallback-icon').style.display = 'block';
+        };
     </script>
 </body>
 </html>
