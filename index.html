@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="bn" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMT Jiggasha | DU Affiliated Engineering</title>
+    <meta name="description" content="ঢাকা বিশ্ববিদ্যালয় অধিভুক্ত সাইক ইনস্টিটিউট অফ ম্যানেজমেন্ট এন্ড টেকনোলজি (SIMT) সম্পর্কে সব তথ্য জানুন।">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Hind Siliguri', sans-serif; }
+        
+        /* Tab Switching Animation */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeInUp 0.5s ease-out forwards; }
+        @keyframes fadeInUp { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        
+        /* FAQ Details Accordion Animation */
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+        details[open] summary ~ * { animation: slideDown 0.4s ease-in-out; }
+        @keyframes slideDown { 
+            from { opacity: 0; transform: translateY(-10px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        
+        /* Floating Animation for Icons */
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Pulse Glow Animation */
+        .animate-glow { animation: glow 2s infinite alternate; }
+        @keyframes glow {
+            from { box-shadow: 0 0 10px -5px rgba(59, 130, 246, 0.5); }
+            to { box-shadow: 0 0 20px 5px rgba(59, 130, 246, 0.6); }
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2563eb; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <nav class="bg-blue-900 text-white sticky top-0 z-50 shadow-xl border-b-4 border-yellow-500">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2 cursor-pointer group" onclick="showTab('home')">
+                    <i class="fa-solid fa-graduation-cap text-yellow-400 text-3xl group-hover:rotate-12 transition duration-300"></i>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-bold tracking-tight leading-tight group-hover:text-yellow-400 transition">SIMT <span class="text-yellow-400 group-hover:text-white transition">JIGGASHA</span></span>
+                        <span class="text-[10px] text-blue-200">simtjiggasha.netlify.app</span>
+                    </div>
+                </div>
+
+                <div class="hidden lg:flex space-x-1 border border-blue-700 bg-blue-800/80 backdrop-blur-sm rounded-full p-1 shadow-inner">
+                    <button onclick="showTab('home')" class="px-5 py-2 rounded-full hover:bg-blue-600 transition duration-300 text-sm font-semibold focus:bg-blue-700">হোম</button>
+                    <button onclick="showTab('result')" class="px-5 py-2 rounded-full hover:bg-blue-600 transition duration-300 text-sm font-semibold focus:bg-blue-700">রেজাল্ট ও ভর্তি</button>
+                    <button onclick="showTab('cost')" class="px-5 py-2 rounded-full hover:bg-blue-600 transition duration-300 text-sm font-semibold focus:bg-blue-700">খরচ ও সুবিধা</button>
+                    <button onclick="showTab('faq')" class="px-5 py-2 rounded-full bg-yellow-500/20 text-yellow-300 hover:bg-yellow-500 hover:text-blue-900 transition duration-300 text-sm font-bold focus:bg-yellow-400 focus:text-blue-900">FAQs</button>
+                    <button onclick="showTab('gallery')" class="px-5 py-2 rounded-full hover:bg-blue-600 transition duration-300 text-sm font-semibold focus:bg-blue-700">গ্যালারি</button>
+                    <button onclick="showTab('seniors')" class="px-5 py-2 rounded-full hover:bg-blue-600 transition duration-300 text-sm font-semibold focus:bg-blue-700">সিনিয়রস</button>
+                </div>
+
+                <div class="lg:hidden">
+                    <button id="mobile-menu-btn" class="text-2xl focus:outline-none hover:text-yellow-400 transition"><i class="fa-solid fa-bars"></i></button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="mobile-menu" class="hidden bg-blue-800 lg:hidden shadow-inner absolute w-full transition-all duration-300 transform origin-top">
+            <button onclick="showTab('home')" class="block w-full text-left px-6 py-3 border-b border-blue-700 font-semibold hover:bg-blue-700 hover:pl-8 transition-all"><i class="fa-solid fa-house w-6 text-yellow-400"></i> হোম</button>
+            <button onclick="showTab('result')" class="block w-full text-left px-6 py-3 border-b border-blue-700 font-semibold hover:bg-blue-700 hover:pl-8 transition-all"><i class="fa-solid fa-square-poll-vertical w-6 text-yellow-400"></i> রেজাল্ট ও ভর্তি গাইডলাইন</button>
+            <button onclick="showTab('cost')" class="block w-full text-left px-6 py-3 border-b border-blue-700 font-semibold hover:bg-blue-700 hover:pl-8 transition-all"><i class="fa-solid fa-money-check-dollar w-6 text-yellow-400"></i> খরচ ও একাডেমিক সুবিধা</button>
+            <button onclick="showTab('faq')" class="block w-full text-left px-6 py-3 border-b border-blue-700 font-semibold text-yellow-400 hover:bg-blue-700 hover:pl-8 transition-all"><i class="fa-solid fa-circle-question w-6"></i> FAQs (সকল প্রশ্নোত্তর)</button>
+            <button onclick="showTab('gallery')" class="block w-full text-left px-6 py-3 border-b border-blue-700 font-semibold hover:bg-blue-700 hover:pl-8 transition-all"><i class="fa-regular fa-images w-6 text-yellow-400"></i> ক্যাম্পাস গ্যালারি</button>
+            <button onclick="showTab('seniors')" class="block w-full text-left px-6 py-3 font-semibold hover:bg-blue-700 hover:pl-8 transition-all"><i class="fa-solid fa-users w-6 text-yellow-400"></i> সিনিয়রদের সাথে যোগাযোগ</button>
+        </div>
+    </nav>
+
+    <main class="min-h-screen pb-16">
+
+        <section id="home" class="tab-content active">
+            <div class="max-w-5xl mx-auto mt-6 px-4">
+                <div class="bg-red-50 border-l-4 border-red-600 p-5 rounded-r-xl shadow-sm hover:shadow-md transition">
+                    <h3 class="text-xl font-bold text-red-700 mb-2 flex items-center"><i class="fa-solid fa-triangle-exclamation mr-2 animate-pulse"></i> কেন গত বছর স্টুডেন্ট দেয় নি?</h3>
+                    <p class="text-slate-700 leading-relaxed text-sm md:text-base">
+                        সরকার পরিবর্তন হওয়ার পর অনেক প্রতিষ্ঠানে অনেক কিছু হয়েছে। স্টুডেন্ট কেন দেয়নি সেটা অথোরিটির বিষয়। এটা সম্পর্কে জানতে হলে আপনাকে ক্যাম্পাসে গিয়ে কথা বলতে হবে। তবে একটা জিনিস ক্লিয়ার যে, যে কারণে স্টুডেন্ট দেয়নি সেটা অভারকাম করেছে বলেই এবার দিচ্ছে। সক্ষমতা না থাকলে বন্ধ করে দিতো। আশা করি বিষয়টা পরিষ্কার হয়েছে।
+                    </p>
+                </div>
+            </div>
+
+            <div class="relative overflow-hidden">
+                <div class="absolute top-[-100px] left-[-100px] w-96 h-96 bg-blue-100 rounded-full opacity-50 blur-3xl -z-10"></div>
+                <div class="absolute bottom-[-100px] right-[-100px] w-96 h-96 bg-yellow-100 rounded-full opacity-50 blur-3xl -z-10"></div>
+
+                <div class="text-center py-16 md:py-24 px-4 relative z-10">
+                    <h1 class="text-4xl md:text-6xl font-black text-blue-900 mb-4 tracking-tight leading-tight drop-shadow-sm">Saic Institute of Management & Technology <span class="text-blue-600">(SIMT)</span></h1>
+                    <p class="text-xl md:text-2xl font-bold text-yellow-600 mb-6 drop-shadow-sm">A Proud DU Affiliated Engineering College</p>
+                    <p class="text-md md:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
+                        ঢাকা বিশ্ববিদ্যালয় অধিভুক্ত টেকনোলজি ডিপার্টমেন্টে ৬টি ইঞ্জিনিয়ারিং কলেজের মধ্যে অন্যতম। পড়াশোনা, যাতায়াত এবং সুন্দর ক্যারিয়ার গড়ার সেরা প্ল্যাটফর্ম।
+                    </p>
+                    <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
+                        <button onclick="showTab('faq')" class="w-full sm:w-auto bg-blue-600 text-white px-8 py-4 rounded-full font-bold shadow-lg hover:bg-blue-700 hover:-translate-y-1 hover:shadow-xl transition duration-300 flex items-center justify-center"><i class="fa-solid fa-book-open-reader mr-2"></i> সকল প্রশ্নোত্তর পড়ুন</button>
+                        <button onclick="showTab('cost')" class="w-full sm:w-auto bg-white text-blue-600 border-2 border-blue-600 px-8 py-4 rounded-full font-bold hover:bg-blue-50 hover:-translate-y-1 hover:shadow-lg transition duration-300 flex items-center justify-center"><i class="fa-solid fa-wallet mr-2"></i> খরচ ও সুবিধা দেখুন</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="max-w-6xl mx-auto px-4 pb-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="bg-white p-8 rounded-2xl shadow-lg border-b-4 border-blue-600 hover:-translate-y-3 hover:shadow-2xl transition-all duration-300 group">
+                    <div class="h-20 flex items-center justify-center mb-2"><i class="fa-solid fa-graduation-cap text-6xl text-blue-600 animate-float"></i></div>
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-blue-700 transition">DU Certificate & Exam</h3>
+                    <p class="text-slate-600 text-sm">৪ বছর শেষে ঢাকা বিশ্ববিদ্যালয়ের সার্টিফিকেট। একমাত্র সাইকের সেমিস্টার ফাইনাল পরীক্ষার হল সরাসরি ঢাবিতে পড়ে।</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg border-b-4 border-yellow-500 hover:-translate-y-3 hover:shadow-2xl transition-all duration-300 group">
+                    <div class="h-20 flex items-center justify-center mb-2"><i class="fa-solid fa-train-subway text-6xl text-yellow-500 animate-float" style="animation-delay: 0.5s;"></i></div>
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-yellow-600 transition">Location & Metro</h3>
+                    <p class="text-slate-600 text-sm">মিরপুর ১৩। মিরপুর ১০ থেকে ঢাবি পর্যন্ত মেট্রো থাকায় দীর্ঘ যানজট এড়িয়ে মাত্র ২০ মিনিটে যাতায়াতের সুবিধা।</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg border-b-4 border-green-500 hover:-translate-y-3 hover:shadow-2xl transition-all duration-300 group">
+                    <div class="h-20 flex items-center justify-center mb-2"><i class="fa-solid fa-building-shield text-6xl text-green-500 animate-float" style="animation-delay: 1s;"></i></div>
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-green-600 transition">Politics-Free & Hostels</h3>
+                    <p class="text-slate-600 text-sm">ক্যাম্পাস সম্পূর্ণ পলিটিক্স মুক্ত। ছেলে ও মেয়ে উভয় স্টুডেন্টদের জন্য নিরাপদ, শিক্ষাবান্ধব পৃথক হোস্টেলের ব্যবস্থা।</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-100 py-16 px-4">
+                <div class="max-w-5xl mx-auto">
+                    <h2 class="text-3xl font-bold text-center mb-4 text-blue-900"><i class="fa-solid fa-map-location-dot mr-2 text-red-500"></i>আমাদের লোকেশন</h2>
+                    <p class="text-center text-slate-600 mb-8 font-medium">ক্যাম্পাস: মিরপুর ১৩, ঢাকা।</p>
+                    <div class="w-full h-80 md:h-[450px] rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(8,_112,_184,_0.3)] border-8 border-white transform transition hover:scale-[1.01] duration-500">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.4320201237174!2d90.37463817613205!3d23.803231878634417!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c79aeaa3d1b9%3A0xc4d72d0a3a42a8ad!2sSaic%20Institute%20of%20Management%20%26%20Technology%20(SIMT)!5e0!3m2!1sen!2sbd!4v1776973955210!5m2!1sen!2sbd" class="w-full h-full" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="result" class="tab-content py-12 px-4 max-w-6xl mx-auto">
+            <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100">
+                <div class="bg-gradient-to-r from-blue-900 to-blue-700 text-white text-center py-10 px-4">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-2">ফলাফল বিশ্লেষণ ও ভর্তি গাইডলাইন</h2>
+                    <p class="text-blue-200">সকলকে গুরুত্ব সহকারে পড়ার জন্য অনুরোধ করা হলো</p>
+                </div>
+                
+                <div class="p-6 md:p-10">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                        <div class="bg-blue-50/50 border border-blue-100 p-6 rounded-2xl hover:shadow-md transition">
+                            <h3 class="text-xl font-bold text-blue-800 mb-4 border-b pb-2"><i class="fa-solid fa-chart-pie mr-2"></i>ফলাফল পরিসংখ্যান</h3>
+                            <ul class="space-y-3 font-medium text-slate-700">
+                                <li class="flex justify-between items-center bg-white p-3 rounded-xl shadow-sm border border-slate-100"><span>পাস মার্ক:</span> <span class="font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full">৪৮</span></li>
+                                <li class="flex justify-between items-center bg-white p-3 rounded-xl shadow-sm border border-slate-100"><span>সর্বমোট উত্তীর্ণ:</span> <span class="font-bold text-blue-600">প্রায় ২৮০০ জন</span></li>
+                                <li class="flex justify-between items-center bg-white p-3 rounded-xl shadow-sm border border-slate-100"><span>মোট আসন:</span> <span class="font-bold text-blue-600">১৪৬০ টি</span></li>
+                                <p class="text-xs text-slate-500 mt-2 text-center">(৪৮০টি সরকারিতে এবং ৯৮০টি বেসরকারিতে)</p>
+                            </ul>
+                        </div>
+
+                        <div class="bg-yellow-50 border border-yellow-200 p-6 rounded-2xl hover:shadow-md transition">
+                            <h3 class="text-xl font-bold text-yellow-800 mb-4 border-b border-yellow-200 pb-2"><i class="fa-regular fa-calendar-check mr-2"></i>জরুরি সময়সূচি ও করণীয়</h3>
+                            <ul class="space-y-4 text-sm text-slate-800">
+                                <li class="flex items-start bg-white p-3 rounded-xl shadow-sm"><i class="fa-solid fa-circle-right text-yellow-500 mt-1 mr-3 text-lg"></i> <div><b>ফল পুণ:নিরীক্ষণ:</b> ১৯/৪ - ২২/৪ এর মধ্যে ১০০০ টাকা জমা দিয়ে আবেদন।</div></li>
+                                <li class="flex items-start bg-white p-3 rounded-xl shadow-sm"><i class="fa-solid fa-circle-right text-yellow-500 mt-1 mr-3 text-lg"></i> <div><b>কোটা আবেদন:</b> ১৯/৪ - ২৩/৪ এর মধ্যে ৫০০ টাকা জমা দিয়ে ফর্ম সংগ্রহ।</div></li>
+                                <li class="flex items-start bg-red-50 p-3 rounded-xl border border-red-100"><i class="fa-solid fa-circle-exclamation text-red-500 mt-1 mr-3 text-lg"></i> <div><b>সাবজেক্ট চয়েস:</b> ২০/৪ থেকে ২৭/৪ এর মধ্যে অনলাইনে পূরণ করতে হবে। <span class="text-red-600 font-bold">এর পর আর ভর্তি হওয়া যাবে না।</span></div></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-center text-slate-800 mb-6">কোন সাবজেক্ট কোথায় পড়ানো হয়?</h3>
+                    <div class="overflow-x-auto mb-10 rounded-xl border border-slate-200 shadow-sm">
+                        <table class="w-full text-left border-collapse bg-white">
+                            <thead>
+                                <tr class="bg-blue-100 text-blue-900">
+                                    <th class="p-4 font-bold border-b">ডিপার্টমেন্ট</th>
+                                    <th class="p-4 font-bold border-b">কোথায় পড়ানো হয়</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-slate-700">
+                                <tr class="border-b hover:bg-slate-50 transition"><td class="p-4 font-bold text-green-700">EEE</td><td class="p-4">সকল কলেজে পড়ানো হয়।</td></tr>
+                                <tr class="border-b hover:bg-slate-50 transition"><td class="p-4 font-bold text-purple-700">CSE</td><td class="p-4">বরিশাল বাদে বাকি সকল প্রতিষ্ঠানে পড়ানো হয়।</td></tr>
+                                <tr class="border-b hover:bg-slate-50 transition"><td class="p-4 font-bold text-yellow-600">Mechanical <span class="bg-blue-100 text-blue-800 text-[10px] px-2 py-1 rounded-full ml-2">SIMT Only</span></td><td class="p-4">শুধুমাত্র <b>SIMT</b> তে পড়ানো হয় (সর্বশেষ অনুমোদন প্রাপ্ত)।</td></tr>
+                                <tr class="border-b hover:bg-slate-50 transition"><td class="p-4 font-bold text-orange-600">Civil <span class="bg-blue-100 text-blue-800 text-[10px] px-2 py-1 rounded-full ml-2">SIMT (Private)</span></td><td class="p-4">সরকারি গুলোতে এবং বেসরকারিভাবে শুধু <b>SIMT</b> তে পড়ানো হয়।</td></tr>
+                                <tr class="border-b hover:bg-slate-50 transition"><td class="p-4 font-semibold">Textile & Fashion</td><td class="p-4">শুধু শ্যামলী এবং নিটারে পড়ানো হয়।</td></tr>
+                                <tr class="hover:bg-slate-50 transition"><td class="p-4 font-semibold">IPE</td><td class="p-4">শুধু নিটারে পড়ানো হয়।</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cost" class="tab-content py-12 px-4 max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold text-center text-blue-900 mb-10">একাডেমিক খরচ এবং সুবিধা</h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                <div class="bg-blue-600 text-white p-8 rounded-3xl shadow-xl text-center transform hover:-translate-y-3 transition duration-300 animate-glow">
+                    <h4 class="text-lg font-bold mb-2 opacity-90">সর্বমোট খরচ (৪ বছর)</h4>
+                    <div class="text-3xl font-black mb-1">৩,৩৭,৩০০ ৳</div>
+                    <p class="text-sm font-bold bg-white/20 rounded-full py-1 mt-3">CSE, EEE, ME, CE</p>
+                </div>
+                <div class="bg-white border-2 border-slate-100 p-8 rounded-3xl shadow-lg text-center transform hover:-translate-y-2 hover:border-blue-300 transition duration-300">
+                    <h4 class="text-lg font-bold mb-2 text-slate-500">ভর্তির সময় জমা</h4>
+                    <div class="text-3xl font-black text-blue-900 mb-1">৪৫,৩০০ ৳</div>
+                    <p class="text-xs text-slate-400 mt-2 uppercase tracking-wide">এককালীন</p>
+                </div>
+                <div class="bg-white border-2 border-slate-100 p-8 rounded-3xl shadow-lg text-center transform hover:-translate-y-2 hover:border-blue-300 transition duration-300">
+                    <h4 class="text-lg font-bold mb-2 text-slate-500">মাসিক ফি</h4>
+                    <div class="text-3xl font-black text-blue-900 mb-1">৪,০০০ ৳</div>
+                    <p class="text-xs text-slate-400 mt-2 uppercase tracking-wide">প্রতি মাসে</p>
+                </div>
+                <div class="bg-yellow-400 text-blue-900 p-8 rounded-3xl shadow-lg text-center transform hover:-translate-y-2 hover:shadow-yellow-400/50 transition duration-300">
+                    <h4 class="text-lg font-bold mb-2">সেশন চার্জ</h4>
+                    <div class="text-3xl font-black mb-1">২৫,০০০ ৳</div>
+                    <p class="text-xs font-bold mt-2 bg-yellow-300 rounded-full py-1 text-yellow-900">প্রতি ১২ মাস পরপর</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-900 text-white rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden group">
+                <div class="absolute top-[-50px] right-[-50px] w-64 h-64 bg-blue-600 rounded-full opacity-20 blur-3xl group-hover:bg-yellow-500 transition duration-1000"></div>
+                
+                <h3 class="text-2xl md:text-3xl font-bold mb-8 relative z-10 text-yellow-400"><i class="fa-solid fa-microscope mr-3 animate-pulse"></i>আধুনিক ল্যাব সুবিধাসমূহ</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4 relative z-10">
+                    <ul class="space-y-3 font-medium text-slate-300">
+                        <li class="flex items-center"><i class="fa-solid fa-check-circle text-green-400 mr-3"></i> Software & VLSI Lab</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check-circle text-green-400 mr-3"></i> CAD & Graphics Lab</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check-circle text-green-400 mr-3"></i> Networking Lab</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check-circle text-green-400 mr-3"></i> PLC & Microcontroller Lab</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check-circle text-green-400 mr-3"></i> Surveying & Structural Lab</li>
+                    </ul>
+                    <ul class="space-y-3 font-medium text-slate-300">
+                        <li class="flex items-center"><i class="fa-solid fa-check-circle text-green-400 mr-3"></i> Heat Transfer & Fluid Mechanics Lab</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check-circle text-green-400 mr-3"></i> CNC Machine Operation Lab</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check-circle text-green-400 mr-3"></i> Materials Testing Lab</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check-circle text-green-400 mr-3"></i> Analog & Digital Electronics Lab</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check-circle text-green-400 mr-3"></i> Electrical Circuit & Measurement Lab</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="tab-content py-16 px-4 bg-slate-100">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-5xl font-black text-blue-900 mb-4"><i class="fa-solid fa-clipboard-question mr-3 text-yellow-500"></i>সকল প্রশ্নোত্তর (FAQs)</h2>
+                    <p class="text-slate-600 font-medium">ভর্তি, পড়াশোনা এবং ক্যারিয়ার সম্পর্কিত সকল প্রশ্নের উত্তর জেনে নাও</p>
+                </div>
+
+                <div class="mb-10 bg-white p-6 rounded-2xl shadow-sm border-t-4 border-blue-600">
+                    <h3 class="text-xl font-bold text-blue-800 mb-6 flex items-center"><i class="fa-solid fa-building-columns mr-3 text-blue-500"></i> সাধারণ ও ক্যাম্পাস বিষয়ক</h3>
+                    <div class="space-y-3">
+                        <details class="group bg-slate-50 rounded-xl border border-slate-200">
+                            <summary class="flex justify-between items-center font-bold cursor-pointer p-5 text-slate-700 hover:text-blue-600 transition">
+                                <span>১. SIMT Engineering College কি ঢাবির সাথে যুক্ত? / সার্টিফিকেট কোথা থেকে দিবে?</span>
+                                <span class="transition group-open:rotate-180 text-blue-500"><i class="fa-solid fa-circle-chevron-down text-xl"></i></span>
+                            </summary>
+                            <div class="text-slate-600 px-5 pb-5 leading-relaxed text-sm border-t border-slate-200 pt-4 mt-1 bg-white rounded-b-xl">
+                                হ্যাঁ, এটি ঢাকা বিশ্ববিদ্যালয়ের (DU) অধিভুক্ত একটি বেসরকারি প্রকৌশল কলেজ। এর একাডেমিক কার্যক্রম ঢাকা বিশ্ববিদ্যালয়ের অধীনে পরিচালিত হয়। সফলভাবে কোর্স সম্পন্ন করলে ঢাকা বিশ্ববিদ্যালয় থেকে অরিজিনাল সার্টিফিকেট প্রদান করা হয়, যা দেশে-বিদেশে সমানভাবে গ্রহণযোগ্য।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 rounded-xl border border-slate-200">
+                            <summary class="flex justify-between items-center font-bold cursor-pointer p-5 text-slate-700 hover:text-blue-600 transition">
+                                <span>২. ক্লাস, পরীক্ষা ও যাতায়াত ব্যবস্থা কেমন?</span>
+                                <span class="transition group-open:rotate-180 text-blue-500"><i class="fa-solid fa-circle-chevron-down text-xl"></i></span>
+                            </summary>
+                            <div class="text-slate-600 px-5 pb-5 leading-relaxed text-sm border-t border-slate-200 pt-4 mt-1 bg-white rounded-b-xl">
+                                ক্লাস ক্যাম্পাসে (মিরপুর ১৩) হলেও সেমিস্টার ফাইনাল পরীক্ষার হল সরাসরি ঢাবিতে পড়ে। মিরপুর ১০ মেট্রো স্টেশন থাকায় ট্রাফিক জ্যাম ছাড়াই মাত্র ২০ মিনিটে যাতায়াত করা যায়।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 rounded-xl border border-slate-200">
+                            <summary class="flex justify-between items-center font-bold cursor-pointer p-5 text-slate-700 hover:text-blue-600 transition">
+                                <span>৩. থাকার ব্যবস্থা, পরিবেশ ও লাইব্রেরি কেমন?</span>
+                                <span class="transition group-open:rotate-180 text-blue-500"><i class="fa-solid fa-circle-chevron-down text-xl"></i></span>
+                            </summary>
+                            <div class="text-slate-600 px-5 pb-5 leading-relaxed text-sm border-t border-slate-200 pt-4 mt-1 bg-white rounded-b-xl">
+                                শিক্ষার্থীদের জন্য Male & Female পৃথক Hostel সুবিধা রয়েছে। মাত্র ৪০০০-৫৫০০ টাকার মধ্যে থাকা এবং খাওয়ার সুব্যবস্থা আছে। ক্যাম্পাস সম্পূর্ণ পলিটিক্স মুক্ত হওয়ায় নিরাপদ ও শিক্ষাবান্ধব পরিবেশ নিশ্চিত করা হয়। এছাড়া শিক্ষার্থীদের জন্য প্রতিষ্ঠানের ১০ম তলায় একটি নিরিবিলি ও আদর্শ পরিবেশের লাইব্রেরি রয়েছে।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 rounded-xl border border-slate-200">
+                            <summary class="flex justify-between items-center font-bold cursor-pointer p-5 text-slate-700 hover:text-blue-600 transition">
+                                <span>৪. এক সেশনে কতজন শিক্ষার্থী ভর্তি হতে পারে?</span>
+                                <span class="transition group-open:rotate-180 text-blue-500"><i class="fa-solid fa-circle-chevron-down text-xl"></i></span>
+                            </summary>
+                            <div class="text-slate-600 px-5 pb-5 leading-relaxed text-sm border-t border-slate-200 pt-4 mt-1 bg-white rounded-b-xl">
+                                এখানে প্রতি সেশনে ডিপার্টমেন্ট প্রতি আসন সংখ্যা মাত্র ৪০ জন। আসন সংখ্যা সীমিত হওয়ায় প্রতিটি শিক্ষার্থী শিক্ষকদের কাছ থেকে নিবিড় তত্ত্বাবধান এবং ল্যাবে পর্যাপ্ত সুযোগ-সুবিধা পায়।
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+                <div class="mb-10 bg-white p-6 rounded-2xl shadow-sm border-t-4 border-purple-600">
+                    <h3 class="text-xl font-bold text-purple-800 mb-6 flex items-center"><i class="fa-solid fa-laptop-code mr-3 text-purple-500"></i> কম্পিউটার সায়েন্স (CSE) বিষয়ক</h3>
+                    <div class="space-y-3">
+                        <details class="group bg-slate-50 rounded-xl border border-slate-200">
+                            <summary class="flex justify-between items-center font-bold cursor-pointer p-5 text-slate-700 hover:text-purple-600 transition">
+                                <span>১. এখানে সিএসই (CSE) পড়ার খরচ এবং ল্যাব সুবিধা কেমন?</span>
+                                <span class="transition group-open:rotate-180 text-purple-500"><i class="fa-solid fa-circle-chevron-down text-xl"></i></span>
+                            </summary>
+                            <div class="text-slate-600 px-5 pb-5 leading-relaxed text-sm border-t border-slate-200 pt-4 mt-1 bg-white rounded-b-xl">
+                                অন্যান্য বেসরকারি ইঞ্জিনিয়ারিং কলেজের তুলনায় এখানে খরচ অনেক সাশ্রয়ী। ৪ বছরের সম্পূর্ণ বিএসসি ইন সিএসই কোর্সের মোট খরচ মাত্র ৩,৩৭,৩০০ টাকা। এখানে আধুনিক প্রযুক্তির সাথে সামঞ্জস্যপূর্ণ ঢাকা বিশ্ববিদ্যালয়ের কারিকুলাম অনুসরণ করা হয় এবং হাতে-কলমে শেখার জন্য রয়েছে আপডেটেড ল্যাব ও অভিজ্ঞ শিক্ষক।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 rounded-xl border border-slate-200">
+                            <summary class="flex justify-between items-center font-bold cursor-pointer p-5 text-slate-700 hover:text-purple-600 transition">
+                                <span>২. সিএসই (CSE) পাস করার পর চাকরির সুযোগ কেমন?</span>
+                                <span class="transition group-open:rotate-180 text-purple-500"><i class="fa-solid fa-circle-chevron-down text-xl"></i></span>
+                            </summary>
+                            <div class="text-slate-600 px-5 pb-5 leading-relaxed text-sm border-t border-slate-200 pt-4 mt-1 bg-white rounded-b-xl">
+                                সিএসই পাস করার পর দেশের সফটওয়্যার কোম্পানি (Brain Station 23, Kaz Software), ব্যাংক, এবং সরকারি প্রতিষ্ঠানে (BCC, ICT Division) প্রোগ্রামার হিসেবে কাজের প্রচুর সুযোগ রয়েছে। এছাড়া রিমোট জব ও ফ্রিল্যান্সিং করে ঘরে বসেই আন্তর্জাতিক ক্যারিয়ার গড়া সম্ভব।
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+                <div class="mb-10 bg-white p-6 rounded-2xl shadow-sm border-t-4 border-green-600">
+                    <h3 class="text-xl font-bold text-green-800 mb-6 flex items-center"><i class="fa-solid fa-plug-circle-bolt mr-3 text-green-500"></i> ইলেকট্রিক্যাল (EEE) বিষয়ক</h3>
+                    <div class="space-y-3">
+                        <details class="group bg-slate-50 rounded-xl border border-slate-200">
+                            <summary class="flex justify-between items-center font-bold cursor-pointer p-5 text-slate-700 hover:text-green-600 transition">
+                                <span>১. EEE পড়ে ক্যারিয়ার গড়ার সুযোগ কেমন?</span>
+                                <span class="transition group-open:rotate-180 text-green-500"><i class="fa-solid fa-circle-chevron-down text-xl"></i></span>
+                            </summary>
+                            <div class="text-slate-600 px-5 pb-5 leading-relaxed text-sm border-t border-slate-200 pt-4 mt-1 bg-white rounded-b-xl">
+                                EEE এর ফিল্ড অনেক বড়। সরকারি পর্যায়ে বিদ্যুৎ উন্নয়ন বোর্ড, ডেসকো (DESCO), পিজিসিবি (PGCB) এবং বেসরকারি পর্যায়ে টেলিকমিউনিকেশন (Grameenphone, Robi), ইলেকট্রনিক্স ম্যানুফ্যাকচারিং এবং অটোমেশন সেক্টরে প্রচুর চাকরির সুযোগ রয়েছে।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 rounded-xl border border-slate-200">
+                            <summary class="flex justify-between items-center font-bold cursor-pointer p-5 text-slate-700 hover:text-green-600 transition">
+                                <span>২. EEE এর ল্যাব ও প্র্যাকটিক্যাল সুবিধা কেমন?</span>
+                                <span class="transition group-open:rotate-180 text-green-500"><i class="fa-solid fa-circle-chevron-down text-xl"></i></span>
+                            </summary>
+                            <div class="text-slate-600 px-5 pb-5 leading-relaxed text-sm border-t border-slate-200 pt-4 mt-1 bg-white rounded-b-xl">
+                                এখানে আধুনিক ইলেকট্রিক্যাল সার্কিট ল্যাব, এনালগ ও ডিজিটাল ইলেকট্রনিক্স ল্যাব, এবং পিএলসি ও মাইক্রোকন্ট্রোলার (PLC & Microcontroller) ল্যাব রয়েছে। ঢাবির কারিকুলাম অনুযায়ী ল্যাবে শিক্ষকদের সরাসরি তত্ত্বাবধানে হাতে-কলমে কাজ শেখানো হয়।
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+                <div class="mb-10 bg-white p-6 rounded-2xl shadow-sm border-t-4 border-yellow-500">
+                    <h3 class="text-xl font-bold text-yellow-800 mb-6 flex items-center"><i class="fa-solid fa-cogs mr-3 text-yellow-500"></i> মেকানিক্যাল (ME) বিষয়ক</h3>
+                    <div class="space-y-3">
+                        <details class="group bg-slate-50 rounded-xl border border-slate-200">
+                            <summary class="flex justify-between items-center font-bold cursor-pointer p-5 text-slate-700 hover:text-yellow-600 transition">
+                                <span>১. ঢাবি অধিভুক্ত কলেজে মেকানিক্যাল পড়ার সুযোগ কোথায় আছে?</span>
+                                <span class="transition group-open:rotate-180 text-yellow-500"><i class="fa-solid fa-circle-chevron-down text-xl"></i></span>
+                            </summary>
+                            <div class="text-slate-600 px-5 pb-5 leading-relaxed text-sm border-t border-slate-200 pt-4 mt-1 bg-white rounded-b-xl">
+                                ঢাবি প্রযুক্তি ইউনিটের অধিভুক্ত কলেজগুলোর মধ্যে একমাত্র সাইক ইনস্টিটিউট অব ম্যানেজমেন্ট অ্যান্ড টেকনোলজি (SIMT)-তে মেকানিক্যাল ইঞ্জিনিয়ারিং বিষয়ে বিএসসি (BSc) ডিগ্রি প্রদান করা হয়। এর সম্পূর্ণ কোর্সের ফি মাত্র ৩,৩৭,৩০০ টাকা।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 rounded-xl border border-slate-200">
+                            <summary class="flex justify-between items-center font-bold cursor-pointer p-5 text-slate-700 hover:text-yellow-600 transition">
+                                <span>২. মেকানিক্যাল পড়াশোনার মান ও ল্যাব সুবিধা কেমন?</span>
+                                <span class="transition group-open:rotate-180 text-yellow-500"><i class="fa-solid fa-circle-chevron-down text-xl"></i></span>
+                            </summary>
+                            <div class="text-slate-600 px-5 pb-5 leading-relaxed text-sm border-t border-slate-200 pt-4 mt-1 bg-white rounded-b-xl">
+                                এখানে ঢাকা বিশ্ববিদ্যালয়ের আধুনিক ও গবেষণাভিত্তিক কারিকুলাম অনুসরণ করা হয়। শিক্ষার্থীদের হাতে-কলমে শেখার জন্য রয়েছে হিট ট্রান্সফার ল্যাব, ফ্লুইড মেকানিক্স ল্যাব, ম্যাটেরিয়ালস টেস্টিং ল্যাব এবং CAD/CAM ল্যাব সহ আধুনিক সব সুবিধা।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 rounded-xl border border-slate-200">
+                            <summary class="flex justify-between items-center font-bold cursor-pointer p-5 text-slate-700 hover:text-yellow-600 transition">
+                                <span>৩. মেকানিক্যাল ইঞ্জিনিয়ারিংয়ে ক্যারিয়ারের সুযোগ ও বিশেষ সুবিধা কী?</span>
+                                <span class="transition group-open:rotate-180 text-yellow-500"><i class="fa-solid fa-circle-chevron-down text-xl"></i></span>
+                            </summary>
+                            <div class="text-slate-600 px-5 pb-5 leading-relaxed text-sm border-t border-slate-200 pt-4 mt-1 bg-white rounded-b-xl">
+                                মেকানিক্যাল ইঞ্জিনিয়ারদের চাহিদা সরকারি (PDB, BWDB, Railway) ও বেসরকারি (Walton, Runner, Power Plants) উভয় খাতেই ব্যাপক। এখানে কোনো সেশন জট নেই এবং পরীক্ষার মাত্র ১৫-৩০ দিনের মধ্যেই রেজাল্ট প্রকাশ করা হয়।
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+                <div class="mb-10 bg-white p-6 rounded-2xl shadow-sm border-t-4 border-orange-600">
+                    <h3 class="text-xl font-bold text-orange-800 mb-6 flex items-center"><i class="fa-solid fa-city mr-3 text-orange-500"></i> সিভিল (Civil) বিষয়ক</h3>
+                    <div class="space-y-3">
+                        <details class="group bg-slate-50 rounded-xl border border-slate-200">
+                            <summary class="flex justify-between items-center font-bold cursor-pointer p-5 text-slate-700 hover:text-orange-600 transition">
+                                <span>১. সিভিল ইঞ্জিনিয়ারিং এর ডিমান্ড এবং ক্যারিয়ার কেমন?</span>
+                                <span class="transition group-open:rotate-180 text-orange-500"><i class="fa-solid fa-circle-chevron-down text-xl"></i></span>
+                            </summary>
+                            <div class="text-slate-600 px-5 pb-5 leading-relaxed text-sm border-t border-slate-200 pt-4 mt-1 bg-white rounded-b-xl">
+                                দেশের ব্যাপক অবকাঠামোগত উন্নয়ন (মেট্রো রেল, হাইওয়ে, মেগা প্রজেক্ট) এর কারণে সিভিল ইঞ্জিনিয়ারদের ডিমান্ড সবসময়ই তুঙ্গে। সরকারি প্রতিষ্ঠান যেমন— PWD, LGED, পানি উন্নয়ন বোর্ড থেকে শুরু করে দেশের শীর্ষ রিয়েল এস্টেট কোম্পানিতে সিভিল ইঞ্জিনিয়ারদের কাজের বিশাল সুযোগ রয়েছে।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 rounded-xl border border-slate-200">
+                            <summary class="flex justify-between items-center font-bold cursor-pointer p-5 text-slate-700 hover:text-orange-600 transition">
+                                <span>২. সিভিলের জন্য কী কী প্র্যাকটিক্যাল ল্যাব আছে?</span>
+                                <span class="transition group-open:rotate-180 text-orange-500"><i class="fa-solid fa-circle-chevron-down text-xl"></i></span>
+                            </summary>
+                            <div class="text-slate-600 px-5 pb-5 leading-relaxed text-sm border-t border-slate-200 pt-4 mt-1 bg-white rounded-b-xl">
+                                শিক্ষার্থীদের প্র্যাকটিক্যাল জ্ঞান দেওয়ার জন্য এখানে আধুনিক ম্যাটেরিয়ালস টেস্টিং ল্যাব, সার্ভেয়িং ইকুইপমেন্ট (Surveying), ফ্লুইড মেকানিক্স এবং এনভায়রনমেন্টাল ইঞ্জিনিয়ারিং ল্যাব রয়েছে যা সরাসরি ঢাবির কারিকুলাম মেনে পরিচালিত হয়।
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="gallery" class="tab-content py-16 px-4 max-w-7xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-blue-900 mb-3"><i class="fa-solid fa-camera-retro mr-2 text-yellow-500"></i>ক্যাম্পাস গ্যালারি</h2>
+            <p class="text-center text-slate-500 mb-12 text-sm italic font-medium bg-slate-100 py-2 rounded-full max-w-sm mx-auto">ছবিগুলো বড় করে দেখতে ক্লিক করুন</p>
+            
+            <div id="image-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"></div>
+        </section>
+
+        <div id="lightbox" class="fixed inset-0 bg-slate-900/95 hidden z-[100] flex flex-col justify-center items-center p-4 backdrop-blur-sm transition-all">
+            <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white text-4xl hover:text-red-500 hover:scale-110 transition duration-300"><i class="fa-solid fa-circle-xmark"></i></button>
+            <img id="lightbox-img" src="" class="max-w-full max-h-[75vh] rounded-xl shadow-2xl border-4 border-slate-700">
+            <p id="lightbox-caption" class="text-white text-xl font-bold mt-6 tracking-wide bg-blue-600/80 px-8 py-2 rounded-full shadow-lg border border-blue-400"></p>
+        </div>
+
+        <section id="seniors" class="tab-content py-20 px-4 bg-gradient-to-br from-blue-900 via-slate-800 to-slate-900">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl md:text-5xl font-black text-center text-white mb-4"><i class="fa-solid fa-users-rays mr-3 text-yellow-400"></i>সিনিয়রদের সাথে যোগাযোগ</h2>
+                <p class="text-center text-blue-200 mb-16 font-medium">অ্যাডমিশন, সাবজেক্ট বা ক্যাম্পাস সম্পর্কে যেকোনো কিছু জানতে নির্দ্বিধায় ইনবক্স করো</p>
+                
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                    <script>
+                        const seniors = [
+                            { name: "Angkon Kar", dept: "CSE", batch: "3rd Batch", img: "angkon.jpg", link: "#" },
+                            { name: "Sajid Hasan", dept: "ME", batch: "3rd Batch", img: "senior2.jpg", link: "#" },
+                            { name: "Fahim Ahmed", dept: "EEE", batch: "2nd Batch", img: "senior3.jpg", link: "#" },
+                            { name: "Sadia Afrin", dept: "CE", batch: "3rd Batch", img: "senior4.jpg", link: "#" },
+                            { name: "Tahmid Rahman", dept: "CSE", batch: "4th Batch", img: "senior5.jpg", link: "#" },
+                            { name: "Jubayer Alam", dept: "ME", batch: "2nd Batch", img: "senior6.jpg", link: "#" },
+                            { name: "Nusrat Jahan", dept: "CSE", batch: "3rd Batch", img: "senior7.jpg", link: "#" },
+                            { name: "Ashiqur Rahman", dept: "EEE", batch: "4th Batch", img: "senior8.jpg", link: "#" },
+                            { name: "Mehedi Hasan", dept: "CE", batch: "2nd Batch", img: "senior9.jpg", link: "#" },
+                            { name: "Rakib Uddin", dept: "CSE", batch: "2nd Batch", img: "senior10.jpg", link: "#" }
+                        ];
+
+                        seniors.forEach(person => {
+                            document.write(`
+                            <div class="bg-white p-6 rounded-[2rem] text-center shadow-lg hover:-translate-y-4 hover:shadow-[0_20px_50px_rgba(59,_130,_246,_0.4)] transition-all duration-300 border border-slate-100 group">
+                                <div class="relative w-20 h-20 mx-auto mb-4">
+                                    <img src="./assets/${person.img}" loading="lazy" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=${person.name}&background=eff6ff&color=1d4ed8&bold=true'" alt="${person.name}" class="w-full h-full rounded-full object-cover border-4 border-blue-100 bg-slate-200 group-hover:border-blue-400 transition duration-300">
+                                </div>
+                                <h4 class="font-bold text-slate-800 text-[15px] truncate">${person.name}</h4>
+                                <p class="text-[11px] text-blue-700 font-black mb-4 bg-blue-50 py-1.5 rounded-full mt-1.5 inline-block px-4 border border-blue-100">${person.dept}, ${person.batch}</p>
+                                <a href="${person.link}" target="_blank" class="block w-full bg-blue-100 text-blue-700 py-2.5 rounded-full hover:bg-blue-600 hover:text-white transition duration-300 text-xs font-bold shadow-sm">
+                                    <i class="fa-brands fa-facebook-messenger text-sm mr-1"></i> মেসেজ
+                                </a>
+                            </div>
+                            `);
+                        });
+                    </script>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-950 text-slate-400 py-12 px-4 text-center border-t-4 border-blue-900">
+        <div class="max-w-4xl mx-auto flex flex-col items-center">
+            <div class="w-16 h-16 bg-slate-900 rounded-full flex items-center justify-center mb-4 border border-slate-800">
+                <i class="fa-solid fa-graduation-cap text-3xl text-yellow-500"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-2">SIMT Engineering College</h3>
+            <p class="mb-6 text-sm text-slate-500">DU Affiliated Engineering Portal for Admission Seekers</p>
+            <div class="bg-slate-900/50 px-6 py-2 rounded-full border border-slate-800 inline-block mb-8">
+                <span class="text-blue-400 font-bold tracking-wider text-sm hover:text-yellow-400 transition cursor-pointer">simtjiggasha.netlify.app</span>
+            </div>
+            <p class="text-xs font-medium">Built with <span class="text-red-500 animate-pulse inline-block">❤️</span> by Angkon Kar (CSE, 3rd Batch) © 2026</p>
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.onclick = () => { mobileMenu.classList.toggle('hidden'); };
+
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+            mobileMenu.classList.add('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        const grid = document.getElementById('image-grid');
+        const labels = ["Library Reading Hall", "Main Entrance", "Software Lab", "CNC Machine Lab", "Classroom Environment", "Campus Canteen", "Hostel Room", "Physics Lab", "DU Examination Hall", "Electrical Circuit Lab"];
+        
+        for(let i=1; i<=50; i++) {
+            const div = document.createElement('div');
+            div.className = "relative group cursor-pointer overflow-hidden rounded-xl bg-slate-200 aspect-[4/3] shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1";
+            const currentLabel = labels[(i-1) % labels.length]; 
+            
+            div.innerHTML = `
+                <img src="./assets/gallery-${i}.jpg" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x300/e2e8f0/64748b?text=SIMT+Gallery'" class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-in-out">
+                <div class="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-blue-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                    <span class="text-white text-xs font-bold truncate tracking-wide border-l-2 border-yellow-400 pl-2">${currentLabel}</span>
+                </div>
+            `;
+            div.onclick = () => openLightbox(`./assets/gallery-${i}.jpg`, currentLabel, i);
+            grid.appendChild(div);
+        }
+
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCap = document.getElementById('lightbox-caption');
+
+        function openLightbox(src, text, index) {
+            lightboxImg.src = src;
+            lightboxImg.onerror = function() { this.onerror=null; this.src = 'https://placehold.co/800x600/e2e8f0/64748b?text=SIMT+Gallery+Image'; };
+            lightboxCap.innerText = text;
+            lightbox.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeLightbox() {
+            lightbox.classList.add('hidden');
+            document.body.style.overflow = 'auto'; 
+        }
+
+        lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+        window.addEventListener('keydown', (e) => { if (e.key === "Escape") closeLightbox(); });
+    </script>
+</body>
+</html>
